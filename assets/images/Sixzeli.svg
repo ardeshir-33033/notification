@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.784" y1="0.939" x2="0.22" y2="0.067" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.411" stop-color="#eaebeb"/>
+      <stop offset="0.506" stop-color="#e3e5e6"/>
+      <stop offset="1" stop-color="#c6ccd0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.146" y1="0.138" x2="0.841" y2="0.848" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.411" stop-color="#eaebeb"/>
+      <stop offset="0.801" stop-color="#a5adb0"/>
+      <stop offset="1" stop-color="#889297"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.244" y1="0.043" x2="0.752" y2="0.95" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffc906"/>
+      <stop offset="0.28" stop-color="#f99f10"/>
+      <stop offset="0.598" stop-color="#f3751a"/>
+      <stop offset="0.849" stop-color="#f05c20"/>
+      <stop offset="1" stop-color="#ef5323"/>
+    </linearGradient>
+    <filter id="Path_49" x="3" y="6" width="94" height="89" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feFlood flood-opacity="0.431"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-4" x1="0.756" y1="0.957" x2="0.248" y2="0.05" xlink:href="#linear-gradient-3"/>
+    <clipPath id="clip-iPhone_X_XS_11_Pro_4">
+      <rect width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_X_XS_11_Pro_4" data-name="iPhone X, XS, 11 Pro – 4" clip-path="url(#clip-iPhone_X_XS_11_Pro_4)">
+    <g id="Group_25" data-name="Group 25">
+      <path id="Path_63" data-name="Path 63" d="M1426.075,615.648a49.789,49.789,0,1,1-49.789-49.791A49.789,49.789,0,0,1,1426.075,615.648Z" transform="translate(-1326.497 -565.857)" fill="url(#linear-gradient)"/>
+      <path id="Path_62" data-name="Path 62" d="M1376.286,665.647a50,50,0,1,1,50-50A50.057,50.057,0,0,1,1376.286,665.647Zm0-98.948a48.948,48.948,0,1,0,48.945,48.948A49,49,0,0,0,1376.286,566.7Z" transform="translate(-1326.286 -565.647)" fill="url(#linear-gradient-2)"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Path_49)">
+      <path id="Path_49-2" data-name="Path 49" d="M1353.32,402.719h35.819a4.91,4.91,0,0,0,4.318-2.574l18.179-33.59a4.9,4.9,0,0,0,0-4.674l-18.179-33.587a4.91,4.91,0,0,0-4.318-2.574H1353.32a4.911,4.911,0,0,0-4.321,2.574l-18.179,33.587a4.916,4.916,0,0,0,0,4.674L1349,400.145A4.912,4.912,0,0,0,1353.32,402.719Z" transform="translate(-1321.23 -313.72)" fill="url(#linear-gradient-3)"/>
+    </g>
+    <path id="Path_64" data-name="Path 64" d="M1387.7,325.719h-34.945a4.791,4.791,0,0,0-4.213,2.508l-17.735,32.718a4.766,4.766,0,0,0,0,4.552l17.735,32.715a4.791,4.791,0,0,0,4.213,2.507H1387.7a4.793,4.793,0,0,0,4.216-2.507l17.735-32.715a4.781,4.781,0,0,0,0-4.552l-17.735-32.718A4.793,4.793,0,0,0,1387.7,325.719Z" transform="translate(-1320.23 -312.719)" fill="url(#linear-gradient-4)"/>
+  </g>
+</svg>

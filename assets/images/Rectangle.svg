@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.784" y1="0.939" x2="0.22" y2="0.067" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.411" stop-color="#eaebeb"/>
+      <stop offset="0.506" stop-color="#e3e5e6"/>
+      <stop offset="1" stop-color="#c6ccd0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.146" y1="0.138" x2="0.841" y2="0.848" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.411" stop-color="#eaebeb"/>
+      <stop offset="0.801" stop-color="#a5adb0"/>
+      <stop offset="1" stop-color="#889297"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.931" y1="0.872" x2="0.09" y2="0.147" gradientUnits="objectBoundingBox">
+      <stop offset="0.004" stop-color="#006299"/>
+      <stop offset="0.459" stop-color="#0073a1"/>
+      <stop offset="1" stop-color="#008eaf"/>
+    </linearGradient>
+    <filter id="Rectangle_14" x="6" y="27" width="88" height="46" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.451"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-4" x1="0.069" y1="0.128" x2="0.91" y2="0.853" xlink:href="#linear-gradient-3"/>
+    <clipPath id="clip-iPhone_X_XS_11_Pro_5">
+      <rect width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_X_XS_11_Pro_5" data-name="iPhone X, XS, 11 Pro – 5" clip-path="url(#clip-iPhone_X_XS_11_Pro_5)">
+    <path id="Path_56" data-name="Path 56" d="M1426.075,615.648a49.789,49.789,0,1,1-49.789-49.791A49.789,49.789,0,0,1,1426.075,615.648Z" transform="translate(-1326.497 -565.857)" fill="url(#linear-gradient)"/>
+    <path id="Path_57" data-name="Path 57" d="M1376.286,665.647a50,50,0,1,1,50-50A50.057,50.057,0,0,1,1376.286,665.647Zm0-98.948a48.948,48.948,0,1,0,48.945,48.948A49,49,0,0,0,1376.286,566.7Z" transform="translate(-1326.286 -565.647)" fill="url(#linear-gradient-2)"/>
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Rectangle_14)">
+      <rect id="Rectangle_14-2" data-name="Rectangle 14" width="82" height="40" rx="3.589" transform="translate(9 30)" fill="url(#linear-gradient-3)"/>
+    </g>
+    <rect id="Rectangle_17" data-name="Rectangle 17" width="80" height="38" rx="3" transform="translate(10 31)" fill="url(#linear-gradient-4)"/>
+  </g>
+</svg>

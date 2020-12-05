@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.784" y1="0.939" x2="0.22" y2="0.067" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.411" stop-color="#eaebeb"/>
+      <stop offset="0.506" stop-color="#e3e5e6"/>
+      <stop offset="1" stop-color="#c6ccd0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.146" y1="0.138" x2="0.841" y2="0.848" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.411" stop-color="#eaebeb"/>
+      <stop offset="0.801" stop-color="#a5adb0"/>
+      <stop offset="1" stop-color="#889297"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.142" y1="0.081" x2="0.805" y2="0.857" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#7e67ac"/>
+      <stop offset="0.378" stop-color="#6c59a2"/>
+      <stop offset="1" stop-color="#473d8d"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="0.858" y1="0.919" x2="0.195" y2="0.143" xlink:href="#linear-gradient-3"/>
+    <clipPath id="clip-iPhone_X_XS_11_Pro_7">
+      <rect width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_X_XS_11_Pro_7" data-name="iPhone X, XS, 11 Pro – 7" clip-path="url(#clip-iPhone_X_XS_11_Pro_7)">
+    <path id="Path_58" data-name="Path 58" d="M1426.075,615.648a49.789,49.789,0,1,1-49.789-49.791A49.789,49.789,0,0,1,1426.075,615.648Z" transform="translate(-1326.497 -565.857)" fill="url(#linear-gradient)"/>
+    <path id="Path_59" data-name="Path 59" d="M1376.286,665.647a50,50,0,1,1,50-50A50.057,50.057,0,0,1,1376.286,665.647Zm0-98.948a48.948,48.948,0,1,0,48.945,48.948A49,49,0,0,0,1376.286,566.7Z" transform="translate(-1326.286 -565.647)" fill="url(#linear-gradient-2)"/>
+    <g id="Group_23" data-name="Group 23" transform="translate(-763.155 -248.118)">
+      <rect id="Rectangle_16" data-name="Rectangle 16" width="64" height="62" rx="3.589" transform="translate(781.155 267.118)" fill="url(#linear-gradient-3)"/>
+      <rect id="Rectangle_18" data-name="Rectangle 18" width="62" height="60" rx="3" transform="translate(782.155 268.118)" fill="url(#linear-gradient-4)"/>
+    </g>
+  </g>
+</svg>

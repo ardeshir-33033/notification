@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.784" y1="0.939" x2="0.22" y2="0.067" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.411" stop-color="#eaebeb"/>
+      <stop offset="0.506" stop-color="#e3e5e6"/>
+      <stop offset="1" stop-color="#c6ccd0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.146" y1="0.138" x2="0.841" y2="0.848" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.411" stop-color="#eaebeb"/>
+      <stop offset="0.801" stop-color="#a5adb0"/>
+      <stop offset="1" stop-color="#889297"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.353" y1="0.354" x2="0.796" y2="0.963" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00a9a7"/>
+      <stop offset="1" stop-color="#00b0e2"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="0.786" y1="0.968" x2="0.353" y2="0.362" xlink:href="#linear-gradient-3"/>
+    <filter id="Polygon_2" x="13.25" y="9.25" width="74.5" height="74.5" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="0.25" result="blur"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-iPhone_X_XS_11_Pro_6">
+      <rect width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_X_XS_11_Pro_6" data-name="iPhone X, XS, 11 Pro – 6" clip-path="url(#clip-iPhone_X_XS_11_Pro_6)">
+    <path id="Path_60" data-name="Path 60" d="M1426.075,615.648a49.789,49.789,0,1,1-49.789-49.791A49.789,49.789,0,0,1,1426.075,615.648Z" transform="translate(-1326.497 -565.857)" fill="url(#linear-gradient)"/>
+    <path id="Path_61" data-name="Path 61" d="M1376.286,665.647a50,50,0,1,1,50-50A50.057,50.057,0,0,1,1376.286,665.647Zm0-98.948a48.948,48.948,0,1,0,48.945,48.948A49,49,0,0,0,1376.286,566.7Z" transform="translate(-1326.286 -565.647)" fill="url(#linear-gradient-2)"/>
+    <g id="Group_24" data-name="Group 24" transform="translate(-903 -103)">
+      <path id="Polygon_1" data-name="Polygon 1" d="M37.5,0,48.75,25.178,75,28.647,55.7,47.678,60.676,75,37.5,61.584,14.324,75,19.3,47.678,0,28.647l26.25-3.47Z" transform="translate(916 112)" fill="url(#linear-gradient-3)"/>
+      <g transform="matrix(1, 0, 0, 1, 903, 103)" filter="url(#Polygon_2)">
+        <path id="Polygon_2-2" data-name="Polygon 2" d="M36.5,0,47.45,24.506,73,27.884,54.217,46.406,59.058,73,36.5,59.941,13.942,73l4.841-26.594L0,27.884l25.55-3.377Z" transform="translate(14 10)" fill="url(#linear-gradient-4)"/>
+      </g>
+    </g>
+  </g>
+</svg>

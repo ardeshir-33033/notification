@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.784" y1="0.939" x2="0.22" y2="0.067" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.411" stop-color="#eaebeb"/>
+      <stop offset="0.506" stop-color="#e3e5e6"/>
+      <stop offset="1" stop-color="#c6ccd0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.146" y1="0.138" x2="0.841" y2="0.848" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.411" stop-color="#eaebeb"/>
+      <stop offset="0.801" stop-color="#a5adb0"/>
+      <stop offset="1" stop-color="#889297"/>
+    </linearGradient>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientTransform="translate(0)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#808184"/>
+      <stop offset="0.447" stop-color="#bfbfc1"/>
+      <stop offset="0.815" stop-color="#ededed"/>
+      <stop offset="1" stop-color="#fff"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="0.5" cy="0.5" r="0.5" gradientTransform="translate(0)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#515254"/>
+      <stop offset="0.184" stop-color="#757678"/>
+      <stop offset="0.577" stop-color="#bfbfc0"/>
+      <stop offset="0.859" stop-color="#ededed"/>
+      <stop offset="1" stop-color="#fff"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient-3" x1="0.784" y1="0.939" x2="0.22" y2="0.067" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ef69a6"/>
+      <stop offset="0.293" stop-color="#dd58a0"/>
+      <stop offset="0.876" stop-color="#af2c90"/>
+      <stop offset="1" stop-color="#a5228d"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="0.23" y1="0.096" x2="0.775" y2="0.91" xlink:href="#linear-gradient-3"/>
+    <clipPath id="clip-iPhone_X_XS_11_Pro_2">
+      <rect width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_X_XS_11_Pro_2" data-name="iPhone X, XS, 11 Pro – 2" clip-path="url(#clip-iPhone_X_XS_11_Pro_2)">
+    <g id="Group_26" data-name="Group 26">
+      <path id="Path_63" data-name="Path 63" d="M1426.075,615.648a49.789,49.789,0,1,1-49.789-49.791A49.789,49.789,0,0,1,1426.075,615.648Z" transform="translate(-1326.497 -565.857)" fill="url(#linear-gradient)"/>
+      <path id="Path_62" data-name="Path 62" d="M1376.286,665.647a50,50,0,1,1,50-50A50.057,50.057,0,0,1,1376.286,665.647Zm0-98.948a48.948,48.948,0,1,0,48.945,48.948A49,49,0,0,0,1376.286,566.7Z" transform="translate(-1326.286 -565.647)" fill="url(#linear-gradient-2)"/>
+    </g>
+    <g id="Group_27" data-name="Group 27" transform="translate(-474.907 96.996)">
+      <path id="Path_53" data-name="Path 53" d="M1406.285,301.715a39.966,39.966,0,1,1-39.965-40A39.983,39.983,0,0,1,1406.285,301.715Z" transform="translate(-843.446 -348.711)" fill="url(#radial-gradient)" style="mix-blend-mode: multiply;isolation: isolate"/>
+      <path id="Path_54" data-name="Path 54" d="M1361.476,303.8c0,20.4-6.654,36.932-14.863,36.932S1331.75,324.2,1331.75,303.8s6.655-36.929,14.863-36.929S1361.476,283.407,1361.476,303.8Z" transform="translate(-799.379 -348.711)" fill="url(#radial-gradient-2)" style="mix-blend-mode: multiply;isolation: isolate"/>
+      <ellipse id="Ellipse_6" data-name="Ellipse 6" cx="37.801" cy="37.835" rx="37.801" ry="37.835" transform="translate(487.073 -84.832)" fill="url(#linear-gradient-3)"/>
+      <path id="Path_55" data-name="Path 55" d="M1368.32,339.783a38.068,38.068,0,1,1,38.033-38.068A38.094,38.094,0,0,1,1368.32,339.783Zm0-75.03a36.962,36.962,0,1,0,36.928,36.962A36.987,36.987,0,0,0,1368.32,264.753Z" transform="translate(-843.446 -348.711)" fill="url(#linear-gradient-4)"/>
+    </g>
+  </g>
+</svg>
