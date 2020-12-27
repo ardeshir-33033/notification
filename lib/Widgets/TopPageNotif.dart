@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:notification_page/Model/NotificationModel.dart';
 import 'package:notification_page/Model/PopUpModel.dart';
 
+import '../Model/PopUpModel.dart';
+import '../Model/UserMessageModel.dart';
+import '../Provider/SignalRProvider.dart';
+
 class TopNotifRow extends StatefulWidget {
   TopNotifRow({
     @required this.phoneHeight,
@@ -10,14 +14,16 @@ class TopNotifRow extends StatefulWidget {
     this.notifList,
     this.popUpList,
     this.visible,
+    this.onTopNotifCallback,
   });
 
   String stableText;
-  List<NotificationMessages> notifList;
+  List<UserMessageModel> notifList;
   List<PopUpMessages> popUpList;
   final int visible;
   final double phoneHeight;
   final double phoneWidth;
+  Function(List<UserMessageModel> NotifListCall) onTopNotifCallback;
 
   @override
   _TopNotifRowState createState() => _TopNotifRowState();
@@ -64,7 +70,10 @@ class _TopNotifRowState extends State<TopNotifRow> {
                 key: UniqueKey(),
                 onDismissed: (direction) {
                   setState(() {
+                    SignalRProvider().deleteMessage(widget.notifList[index]);
                     rawList.removeAt(index);
+                    widget.notifList.removeAt(index);
+                    widget.onTopNotifCallback(widget.notifList);
                   });
                 },
                 child: Column(

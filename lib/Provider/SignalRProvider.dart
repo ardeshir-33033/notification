@@ -35,6 +35,11 @@ class SignalRProvider with ChangeNotifier{
         }
       });
 
+    connection.on('ReceiveLiveMessage', (message)  {
+
+      print("user:${message.first} ..... message:${message.last}");
+    });
+
 
     connection.on('ReceiveUpdatedMessage', (message) async {
 
@@ -42,7 +47,7 @@ class SignalRProvider with ChangeNotifier{
       addOrUpdateMessage(msg);
     });
 
-    connection.on('UserMessages', (message) async {
+    connection.on('ReceiveUserMessages', (message) async {
 
       var jsonArray = jsonDecode(message.first);
       List<UserMessageModel> msgs = UserMessageModel().listFromJson(jsonArray);
@@ -63,7 +68,7 @@ class SignalRProvider with ChangeNotifier{
       await connection.start();
     });
 
-    Timer timer = Timer.periodic(Duration(seconds: 10), (timer) async {
+    Timer timer = Timer.periodic(Duration(seconds: 40), (timer) async {
       if(connection.state == HubConnectionState.connected){
         await connection.invoke('StayLiveMessage', args: [appName, 'mojarab', 'i am alive']);
       }else{

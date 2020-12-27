@@ -3,18 +3,26 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:notification_page/Model/NotificationDetailModel.dart';
 
+import '../Model/NotificationDetailModel.dart';
+import '../Model/NotificationDetailModel.dart';
+import '../Model/UserMessageModel.dart';
+import '../Provider/SignalRProvider.dart';
+import '../Provider/SignalRProvider.dart';
+
 class NotificationDetailBuilder extends StatefulWidget {
   NotificationDetailBuilder({
     @required this.phoneWidth,
     @required this.NotifDetaliList,
     @required this.phoneHeight,
     this.visible,
+    this.onNotifDeleteCallBack,
   });
 
   final double phoneWidth;
   final double phoneHeight;
-  final List<NotificationDetail> NotifDetaliList;
+  List<UserMessageModel> NotifDetaliList;
   bool visible;
+  Function(List<UserMessageModel> NotifListCallBack) onNotifDeleteCallBack;
 
   @override
   _NotificationDetailBuilderState createState() =>
@@ -30,14 +38,17 @@ class _NotificationDetailBuilderState extends State<NotificationDetailBuilder> {
         height: widget.phoneHeight / 1.6,
         width: widget.phoneWidth,
         child: ListView.builder(
-          itemCount: NotifDetailList.length,
+          itemCount: widget.NotifDetaliList.length,
           itemBuilder: (context, index) {
             return Dismissible(
               direction: DismissDirection.endToStart,
               key: UniqueKey(),
               onDismissed: (direction) {
                 setState(() {
-                  NotifDetailList.removeAt(index);
+                  SignalRProvider()
+                      .deleteMessage(widget.NotifDetaliList[index]);
+                  widget.NotifDetaliList.removeAt(index);
+                  widget.onNotifDeleteCallBack(widget.NotifDetaliList);
                 });
               },
               child: Padding(
@@ -61,16 +72,18 @@ class _NotificationDetailBuilderState extends State<NotificationDetailBuilder> {
                         padding: EdgeInsets.only(right: 10),
                         width: widget.phoneWidth / 1.8,
                         child: Text(
-                          widget.NotifDetaliList[index].detail,
+                          widget.NotifDetaliList[index].message,
                           textDirection: TextDirection.rtl,
-                          style: TextStyle(fontSize: 12.0),
+                          style: TextStyle(fontSize: 10.0),
                         ),
                       ),
                       Stack(
                         alignment: Alignment.center,
                         children: [
                           SvgPicture.asset(
-                            widget.NotifDetaliList[index].SvgAdress,
+                            widget.NotifDetaliList[index].icon != null
+                                ? NotifIcon(widget.NotifDetaliList[index].icon)
+                                : 'assets/images/Rectangle.svg',
                             width: widget.phoneWidth / 7,
                           ),
                           Text(widget.NotifDetaliList[index].title)
@@ -85,5 +98,23 @@ class _NotificationDetailBuilderState extends State<NotificationDetailBuilder> {
         ),
       ),
     );
+  }
+}
+
+String NotifIcon(String IconString) {
+  IconString.toLowerCase();
+  if (IconString == 'it') {
+    return 'assets/images/Circle.svg';
+  }
+
+  if (IconString == 'square') {
+    return 'assets/images/Square.svg';
+  }
+
+  if (IconString == 'rectangle') {
+    return 'assets/images/Rectangle.svg';
+  }
+  if (IconString == 'star') {
+    return 'assets/images/Star.svg';
   }
 }
