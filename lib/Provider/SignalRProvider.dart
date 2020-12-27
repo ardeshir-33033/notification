@@ -56,7 +56,7 @@ class SignalRProvider with ChangeNotifier{
     connection.on("ReceiveConnectedMessage", (message) async {
       await connection.invoke('Init', args: [appName, 'mojarab', connection.connectionId, 'notification_app']);
 
-      fetchMessages();
+      fetchMessages(); 
     });
 
     connection.on("ReceiveDisconnectedMessage", (message) async {
