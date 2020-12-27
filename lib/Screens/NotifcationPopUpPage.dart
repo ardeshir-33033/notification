@@ -13,6 +13,9 @@ import 'package:notification_page/Widgets/TopPageNotif.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signalr_core/signalr_core.dart';
 
+import '../Model/UserMessageModel.dart';
+import '../Provider/SignalRProvider.dart';
+
 class NotificationsPage extends StatefulWidget {
   bool NotifPopVisible = false;
   bool popUpVisible = false;
@@ -22,28 +25,30 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
-int counter = 0;
-List<NotificationMessages> messages = List<NotificationMessages>();
-List<NotificationDetail> notif = List<NotificationDetail>();
+  int counter = 0;
+  List<UserMessageModel> messages = List<UserMessageModel>();
+  List<UserMessageModel> notif = List<UserMessageModel>();
 
-final connection = HubConnectionBuilder().withUrl('https://signal.dinavision.org/chatHub',
-    HttpConnectionOptions(
-      logging: (level, message) => print(message),
-    )).build();
+  final connection = HubConnectionBuilder()
+      .withUrl(
+          'https://signal.dinavision.org/chatHub',
+          HttpConnectionOptions(
+            logging: (level, message) => print(message),
+          ))
+      .build();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    SignalRProvider(onMessagesUpdateCallback: (result){
+    SignalRProvider(onMessagesUpdateCallback: (result) {
       counter = SignalRProvider().getMessages().length;
       var msgs = SignalRProvider().getMessages();
       print('messages:$msgs');
 
-      messages = msgs.map((e) => NotificationMessages(importance: 1 , message:e.message, id: e.identity)).toList();
-      print("messages2:$msgs");
-      notif = msgs.map((e) => NotificationDetail(importance: 1 , title:e.message, id: e.identity)).toList();
+      messages = msgs.reversed.toList();
+      notif = msgs;
 
       setState(() {});
     }).initSignalR();
@@ -99,6 +104,11 @@ final connection = HubConnectionBuilder().withUrl('https://signal.dinavision.org
                           phoneWidth: phoneWidth,
                           notifList: messages,
                           stableText: 'N',
+                          onTopNotifCallback:
+                              (List<UserMessageModel> notifList) {
+                            messages = notifList;
+                            setState(() {});
+                          },
                         ),
                         onTap: () {
                           setState(() {
@@ -131,11 +141,23 @@ final connection = HubConnectionBuilder().withUrl('https://signal.dinavision.org
                 NotificationDetailBuilder(
                   phoneWidth: phoneWidth,
                   phoneHeight: phoneHeight,
-                  NotifDetaliList: notif,
+                  NotifDetaliList: messages,
                   visible: widget.NotifPopVisible,
+                  onNotifDeleteCallBack:
+                      (List<UserMessageModel> NotifDetaliList) {
+                    messages = NotifDetaliList;
+                    setState(() {});
+                  },
                 ),
               ],
             ),
+            // RaisedButton(
+            //   onPressed: ()async {
+            //     await SignalRProvider().fetchMessages();
+            //     setState(() {});
+            //   },
+            //   color: Colors.red,
+            // )
           ],
         ),
       ),
