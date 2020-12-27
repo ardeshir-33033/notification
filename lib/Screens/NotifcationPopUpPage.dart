@@ -1,11 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_page/Model/NotificationDetailModel.dart';
 import 'package:notification_page/Model/NotificationModel.dart';
 import 'package:notification_page/Model/PopUpDetail.dart';
 import 'package:notification_page/Model/PopUpModel.dart';
+import 'package:notification_page/Model/UserMessageModel.dart';
+import 'package:notification_page/Provider/SPProvider.dart';
+import 'package:notification_page/Provider/SignalRProvider.dart';
 import 'package:notification_page/Widgets/NotificationDetailWidget.dart';
 import 'package:notification_page/Widgets/PopUpDetailWidget.dart';
 import 'package:notification_page/Widgets/TopPageNotif.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:signalr_core/signalr_core.dart';
 
 class NotificationsPage extends StatefulWidget {
   bool NotifPopVisible = false;
@@ -16,7 +22,33 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
+int counter = 0;
+List<NotificationMessages> messages = List<NotificationMessages>();
+List<NotificationDetail> notif = List<NotificationDetail>();
+
+final connection = HubConnectionBuilder().withUrl('https://signal.dinavision.org/chatHub',
+    HttpConnectionOptions(
+      logging: (level, message) => print(message),
+    )).build();
+
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    SignalRProvider(onMessagesUpdateCallback: (result){
+      counter = SignalRProvider().getMessages().length;
+      var msgs = SignalRProvider().getMessages();
+      print('messages:$msgs');
+
+      messages = msgs.map((e) => NotificationMessages(importance: 1 , message:e.message, id: e.identity)).toList();
+      print("messages2:$msgs");
+      notif = msgs.map((e) => NotificationDetail(importance: 1 , title:e.message, id: e.identity)).toList();
+
+      setState(() {});
+    }).initSignalR();
+  }
+
   @override
   Widget build(BuildContext context) {
     double phoneWidth = MediaQuery.of(context).size.width;
@@ -24,7 +56,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          children:[
+          children: [
             Dismissible(
               direction: DismissDirection.startToEnd,
               key: UniqueKey(),
@@ -65,7 +97,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                           visible: 2,
                           phoneHeight: phoneHeight,
                           phoneWidth: phoneWidth,
-                          notifList: NotifList,
+                          notifList: messages,
                           stableText: 'N',
                         ),
                         onTap: () {
@@ -99,7 +131,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 NotificationDetailBuilder(
                   phoneWidth: phoneWidth,
                   phoneHeight: phoneHeight,
-                  NotifDetaliList: NotifDetailList,
+                  NotifDetaliList: notif,
                   visible: widget.NotifPopVisible,
                 ),
               ],

@@ -42,17 +42,17 @@ class _TopNotifRowState extends State<TopNotifRow> {
             child: Text(
               '${rawList.length}${widget.stableText}',
               style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),
         ),
         Container(
-          padding: EdgeInsets.only(left: 10),
+          padding: EdgeInsets.only(left: 5),
           height: widget.phoneHeight / 7,
-          width: widget.phoneWidth / 4,
+          width: widget.phoneWidth / 3.6,
           child: ListView.builder(
             itemCount: rawList.length,
             itemBuilder: (context, index) {
