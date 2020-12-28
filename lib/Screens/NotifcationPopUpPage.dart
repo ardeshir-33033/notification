@@ -29,14 +29,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
   List<UserMessageModel> messages = List<UserMessageModel>();
   List<UserMessageModel> notif = List<UserMessageModel>();
 
-  final connection = HubConnectionBuilder()
-      .withUrl(
-          'https://signal.dinavision.org/chatHub',
-          HttpConnectionOptions(
-            logging: (level, message) => print(message),
-          ))
-      .build();
-
   @override
   void initState() {
     // TODO: implement initState

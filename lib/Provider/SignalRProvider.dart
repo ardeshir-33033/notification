@@ -4,13 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:notification_page/Model/UserMessageModel.dart';
 import 'package:signalr_core/signalr_core.dart';
 
-class SignalRProvider with ChangeNotifier {
-  static String appName = "NotifApp";
+class SignalRProvider {
+  static String appName = "MANAGOSTAR_NOTIFICATION";
+  static String userName = "mojarab";
+  static String deviceName = "android_app";
+
   static List<UserMessageModel> messages = List<UserMessageModel>();
 
-  static HubConnection connection = HubConnectionBuilder()
+  HubConnection connection = HubConnectionBuilder()
       .withUrl(
-          'https://signal.dinavision.org/chatHub',
+           'https://signal.dinavision.org/chatHub',
+    //'https://localhost:44337/chathub',
           HttpConnectionOptions(
             logging: (level, message) => print(message),
           ))
@@ -29,7 +33,7 @@ class SignalRProvider with ChangeNotifier {
       UserMessageModel msg = UserMessageModel.fromJson(message.first);
       messages.add(msg);
 
-      if (msg.user == "mojarab") {
+      if (msg.user == userName) {
         await connection.invoke('SendRecivedMessage',
             args: [msg.app, msg.user, msg.identity]);
       }
@@ -40,7 +44,11 @@ class SignalRProvider with ChangeNotifier {
     });
 
     connection.on('ReceiveLiveMessage', (message) {
-      print("user:${message.first} ..... message:${message.last}");
+      try{
+        print("user:${message.first} ..... message:${message.last}");
+      }catch(e){
+        print(e);
+      }
     });
 
     connection.on('ReceiveUpdatedMessage', (message) async {
@@ -58,15 +66,24 @@ class SignalRProvider with ChangeNotifier {
       }
     });
 
+    connection.on('ReceiveUnReceivedMessages', (message) async {
+      var jsonArray = jsonDecode(message.first);
+      List<UserMessageModel> msgs = UserMessageModel().listFromJson(jsonArray);
+      messages.addAll(msgs);
+
+      if (onMessagesUpdateCallback != null) {
+        onMessagesUpdateCallback(true);
+      }
+    });
+
     connection.on("ReceiveConnectedMessage", (message) async {
       try {
         await connection.invoke('Init', args: [
           appName,
-          'mojarab',
+          userName,
           connection.connectionId,
-          'notification_app'
+          deviceName
         ]);
-        await fetchMessages();
       } catch (e) {
         print(e);
       }
@@ -79,19 +96,27 @@ class SignalRProvider with ChangeNotifier {
     Timer timer = Timer.periodic(Duration(seconds: 20), (timer) async {
       if (connection.state == HubConnectionState.connected) {
         await connection.invoke('StayLiveMessage',
-            args: [appName, 'mojarab', 'i am alive']);
+            args: [appName, userName, 'i am alive']);
       } else {
-        await connection.start();
+        //await connection.start();
       }
     });
-  }
 
-  Future fetchMessages() async {
-    await connection.invoke('GetMyMessages', args: [appName, 'mojarab']);
+    Timer timer1 = Timer.periodic(Duration(seconds: 15), (timer) async {
+      if (connection.state == HubConnectionState.connected) {
+        await connection.invoke('SendMyMessages', args: [appName, userName, deviceName]);
+      } else {
+        //await connection.start();
+      }
+    });
 
-    if (onMessagesUpdateCallback != null) {
-      onMessagesUpdateCallback(true);
-    }
+    Timer timer2 = Timer.periodic(Duration(seconds: 25), (timer) async {
+      if (connection.state == HubConnectionState.connected) {
+        await connection.invoke('SendUnsendedMessages', args: [appName, userName, deviceName]);
+      } else {
+        //await connection.start();
+      }
+    });
   }
 
   List<UserMessageModel> getMessages() {

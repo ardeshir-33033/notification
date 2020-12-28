@@ -22,6 +22,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MyService extends Service {
+    String appName = "MANAGOSTAR_NOTIFICACTION";
+    String userName = "mojarab";
+    String deviceName = "android_service";
     private HubConnection mHubConnection;
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").create();
     private String tid;
@@ -42,6 +45,7 @@ public class MyService extends Service {
         }
 
         mHubConnection = HubConnectionBuilder.create("https://signal.dinavision.org/chathub").build();
+        //mHubConnection = HubConnectionBuilder.create("https://localhost:44337/chathub").build();
 
         mHubConnection.on("ReceiveDisconnectedMessage", (message) ->
         {
@@ -51,33 +55,8 @@ public class MyService extends Service {
 
         mHubConnection.on("ReceiveConnectedMessage", (message) ->
         {
-            mHubConnection.invoke("Init", "NotifApp", "mojarab", mHubConnection.getConnectionId(), "notification_service");
+            mHubConnection.invoke("Init", appName, userName, mHubConnection.getConnectionId(), deviceName);
         }, String.class);
-
-//        mHubConnection.on("AndroidReceiveMessage", (message) ->
-//        {
-//            try{
-//                UserMessageModel1 model = gson.fromJson(message, UserMessageModel1.class);
-//
-//                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "mana_notifications");
-//                builder.setContentText(model.message)
-//                        .setContentTitle(model.title)
-//                        .setSmallIcon(R.drawable.tips)
-//                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.rectangle))
-//                        .build();
-//
-//                NotificationManager Nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//
-//                Nmanager.notify(model.identity, builder.build());
-//
-//                // ارسال پیامی که دریافت شده است
-//                mHubConnection.invoke("SendRecivedMessage", model.app, model.user, model.identity);
-//
-//                Log.d("AndroidReceiveMessage", message);
-//            }catch (Exception ex){
-//                Log.d("ARM", ex.getMessage());
-//            }
-//        }, String.class);
 
         mHubConnection.on("ReceiveMessage", (message) ->
         {
@@ -131,9 +110,9 @@ public class MyService extends Service {
             @Override
             public void run() {
                 if (mHubConnection.getConnectionState() == HubConnectionState.CONNECTED){
-                    mHubConnection.invoke("StayLiveMessage", "NotifApp", "mojarab", "i am alive");
+                    mHubConnection.invoke("StayLiveMessage", appName, userName, "i am alive");
                 }else{
-                    mHubConnection.start().blockingAwait();
+                    //mHubConnection.start().blockingAwait();
                 }
             }
         }, 0, 10000);
