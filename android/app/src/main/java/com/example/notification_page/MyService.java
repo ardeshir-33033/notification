@@ -108,6 +108,17 @@ public class MyService extends Service {
         }
     }
 
+//
+//    private static void changeBootStateReceiver(Context context, boolean enable) {
+//        ComponentName receiver = new ComponentName(context, BootCompletedReceiver.class);
+//        PackageManager pm = context.getPackageManager();
+//
+//        pm.setComponentEnabledSetting(receiver,
+//                enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+//                        : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+//                PackageManager.DONT_KILL_APP);
+//    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         new Timer().schedule(new TimerTask() {

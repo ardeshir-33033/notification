@@ -25,4 +25,20 @@ public class MainActivity extends FlutterActivity{
             startService(service);
         }
     }
+//    public void onReceive(Context context, Intent intent) {
+//        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+//            Intent mIntent = new Intent(context, MainActivity.class);
+//            mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(mIntent);
+//        }
+//    }
+//        private static void changeBootStateReceiver(Context context, boolean enable) {
+//        ComponentName receiver = new ComponentName(context, BootCompletedReceiver.class);
+//        PackageManager pm = context.getPackageManager();
+//
+//        pm.setComponentEnabledSetting(receiver,
+//                enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+//                        : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+//                PackageManager.DONT_KILL_APP);
+//    }
 }

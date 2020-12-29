@@ -28,6 +28,7 @@ class SignalRProvider {
     this.onMessagesUpdateCallback,
   });
 
+
   Future initSignalR() async {
     try{
       await connection.start();
