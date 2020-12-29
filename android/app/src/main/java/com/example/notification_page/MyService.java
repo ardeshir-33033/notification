@@ -33,75 +33,79 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "mana_notifications")
-                    .setContentText("سیستم مدیریت پیام های فوری")
-                    .setContentTitle("مانا گستر آرا")
-                    .setSmallIcon(R.drawable.tips)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.tips));
-
-            startForeground(100011, builder.build());
-        }
-
-        mHubConnection = HubConnectionBuilder.create("https://signal.dinavision.org/chathub").build();
-        //mHubConnection = HubConnectionBuilder.create("https://localhost:44337/chathub").build();
-
-        mHubConnection.on("ReceiveDisconnectedMessage", (message) ->
-        {
-            //mHubConnection.start().blockingAwait();
-            Log.d(">>>>>>>>>>", "DISCONNECTED");
-        }, String.class);
-
-        mHubConnection.on("ReceiveConnectedMessage", (message) ->
-        {
-            mHubConnection.invoke("Init", appName, userName, mHubConnection.getConnectionId(), deviceName);
-        }, String.class);
-
-        mHubConnection.on("ReceiveMessage", (message) ->
-        {
-            try{
-                UserMessageModel1 model = gson.fromJson(message, UserMessageModel1.class);
-
-                Bitmap myBitmap;
-
-                if(model != null && model.icon == "it") {
-                    myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle);
-                }else if(model != null && model.icon == "sales"){
-                    myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.square);
-                }else if(model != null && model.icon == "warehouse"){
-                    myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.rectangle);
-                }else if(model != null && model.icon == "accounting"){
-                    myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.star);
-                }else {
-                    myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.tips);
-                }
-
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "mana_notifications");
-                builder.setContentText(model.message)
-                        .setContentTitle(model.title)
+        try{
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                NotificationManager manager = getSystemService(NotificationManager.class);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "mana_notifications")
+                        .setContentText("سیستم مدیریت پیام های فوری")
+                        .setContentTitle("مانا گستر آرا")
                         .setSmallIcon(R.drawable.tips)
-                        .setLargeIcon(myBitmap)
-                        .build();
+                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.tips));
 
-                NotificationManager Nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-                Nmanager.notify(model.identity, builder.build());
-
-                // ارسال پیامی که دریافت شده است
-                mHubConnection.invoke("SendRecivedMessage", model.app, model.user, model.identity);
-
-                Log.d("@@@@@@@@@@@@@@@@@", "----------------------------------------------------------");
-                Log.d(" ReceiveMessage -> ", message);
-                Log.d("@@@@@@@@@@@@@@@@@", "----------------------------------------------------------");
-            }catch (Exception ex){
-                Log.d("@@@@@@@@@@@@@@@@@", "---------------------------------------------------------");
-                Log.d("RM ------------> ", ex.getMessage());
-                Log.d("@@@@@@@@@@@@@@@@@", "---------------------------------------------------------");
+                startForeground(100011, builder.build());
             }
-        }, String.class);
 
-        mHubConnection.start().blockingAwait();
+            mHubConnection = HubConnectionBuilder.create("https://signal.dinavision.org/chathub").build();
+            //mHubConnection = HubConnectionBuilder.create("https://localhost:44337/chathub").build();
+
+            mHubConnection.on("ReceiveDisconnectedMessage", (message) ->
+            {
+                //mHubConnection.start().blockingAwait();
+                Log.d(">>>>>>>>>>", "DISCONNECTED");
+            }, String.class);
+
+            mHubConnection.on("ReceiveConnectedMessage", (message) ->
+            {
+                mHubConnection.invoke("Init", appName, userName, mHubConnection.getConnectionId(), deviceName);
+            }, String.class);
+
+            mHubConnection.on("ReceiveMessage", (message) ->
+            {
+                try{
+                    UserMessageModel1 model = gson.fromJson(message, UserMessageModel1.class);
+
+                    Bitmap myBitmap;
+
+                    if(model != null && model.icon == "it") {
+                        myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle);
+                    }else if(model != null && model.icon == "sales"){
+                        myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.square);
+                    }else if(model != null && model.icon == "warehouse"){
+                        myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.rectangle);
+                    }else if(model != null && model.icon == "accounting"){
+                        myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.star);
+                    }else {
+                        myBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.tips);
+                    }
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "mana_notifications");
+                    builder.setContentText(model.message)
+                            .setContentTitle(model.title)
+                            .setSmallIcon(R.drawable.tips)
+                            .setLargeIcon(myBitmap)
+                            .build();
+
+                    NotificationManager Nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                    Nmanager.notify(model.identity, builder.build());
+
+                    // ارسال پیامی که دریافت شده است
+                    mHubConnection.invoke("SendRecivedMessage", model.app, model.user, model.identity);
+
+                    Log.d("@@@@@@@@@@@@@@@@@", "----------------------------------------------------------");
+                    Log.d(" ReceiveMessage -> ", message);
+                    Log.d("@@@@@@@@@@@@@@@@@", "----------------------------------------------------------");
+                }catch (Exception ex){
+                    Log.d("@@@@@@@@@@@@@@@@@", "---------------------------------------------------------");
+                    Log.d("RM ------------> ", ex.getMessage());
+                    Log.d("@@@@@@@@@@@@@@@@@", "---------------------------------------------------------");
+                }
+            }, String.class);
+
+            mHubConnection.start().blockingAwait();
+        }catch (Exception ex){
+
+        }
     }
 
     @Override
@@ -109,13 +113,17 @@ public class MyService extends Service {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                if (mHubConnection.getConnectionState() == HubConnectionState.CONNECTED){
-                    mHubConnection.invoke("StayLiveMessage", appName, userName, "i am alive");
-                }else{
-                    //mHubConnection.start().blockingAwait();
+                try{
+                    if (mHubConnection.getConnectionState() == HubConnectionState.CONNECTED){
+                        mHubConnection.invoke("StayLiveMessage", appName, userName, "i am alive");
+                    }else{
+                        mHubConnection.start().blockingAwait();
+                    }
+                }catch (Exception Ex){
+
                 }
             }
-        }, 0, 10000);
+        }, 0, 22000);
 
         return START_STICKY;
     }
