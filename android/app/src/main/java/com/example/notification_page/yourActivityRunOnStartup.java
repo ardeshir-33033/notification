@@ -1,4 +1,4 @@
-package yourpackage;
+package com.example.notification_page;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
