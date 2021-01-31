@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'FlutterToJava/MethodChannel.dart';
+import 'Screens/Login.dart';
 import 'Screens/NotifcationPopUpPage.dart';
 
 
@@ -10,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: NotificationsPage(),
+      home: GetMethod(),
     );
   }
 }

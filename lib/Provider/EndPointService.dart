@@ -12,6 +12,10 @@ class EndPointService extends ApiService {
   String baseName = 'Users';
   @override
   String baseUrl = 'https://signal.dinavision.org/api';
+
+  @override
+  String SecUrl = 'https://dinavision.org/userinfo';
+      /////'getuserId?email=';
 }
 
 enum HeaderEnum {
@@ -31,6 +35,7 @@ abstract class ApiService {
   List includes;
   String baseName;
   String baseUrl;
+  String SecUrl;
   String parameter = "";
   String query = "";
   String token = "";
@@ -58,9 +63,9 @@ abstract class ApiService {
       // case HeaderEnum.ImageHeaderEnum:
       //   return imageHeader;
       //   break;
-      // case HeaderEnum.BearerHeaderEnum:
-      //   return bearerHeader;
-      //   break;
+      case HeaderEnum.BearerHeaderEnum:
+        return getBearerHeader('');
+        break;
       case HeaderEnum.FormDataHeaderEnum:
         return formDataHeader;
         break;
@@ -145,6 +150,20 @@ abstract class ApiService {
     }
 
     return this;
+  }
+
+  httpGet2(HeaderEnum headerType, ResponseEnum responseType) {
+    return http
+        .get(
+      "$SecUrl$baseName$parameter$query",
+      headers: headerGetter(headerType),
+    )
+        .then(
+          (http.Response response) => responseGetter(
+        responseType,
+        response,
+      ),
+    );
   }
 
   httpGet(HeaderEnum headerType, ResponseEnum responseType) {
