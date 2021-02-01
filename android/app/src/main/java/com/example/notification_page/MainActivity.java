@@ -20,43 +20,6 @@ public class MainActivity extends FlutterActivity {
     private Intent service;
     private static final String CHANNEL = "samples.flutter.dev/battery";
 
-    @Override
-    public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
-        private int getBatteryLevel () {
-            int batteryLevel = -1;
-            if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-                BatteryManager batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
-                batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-            } else {
-                Intent intent = new ContextWrapper(getApplicationContext()).
-                        registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-                batteryLevel = (intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100) /
-                        intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-            }
-
-            return batteryLevel;
-        }
-
-        super.configureFlutterEngine(flutterEngine);
-        new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL)
-                .setMethodCallHandler(
-                        (call, result) -> {
-                            // Note: this method is invoked on the main thread.
-                            // TODO
-                            if (call.method.equals("getBatteryLevel")) {
-                                int batteryLevel = getBatteryLevel();
-
-                                if (batteryLevel != -1) {
-                                    result.success(batteryLevel);
-                                } else {
-                                    result.error("UNAVAILABLE", "Battery level not available.", null);
-                                }
-                            } else {
-                                result.notImplemented();
-                            }
-                        }
-                );
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

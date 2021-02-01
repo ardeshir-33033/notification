@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:notification_page/Provider/PathServices.dart';
 import 'package:notification_page/Provider/ProfileServices.dart';
+import 'package:notification_page/Provider/SignalRProvider.dart';
 import 'package:notification_page/Widgets/RegisterTextField.dart';
+
+import 'NotifcationPopUpPage.dart';
 
 class LoginNotif extends StatefulWidget {
   @override
@@ -9,6 +13,23 @@ class LoginNotif extends StatefulWidget {
 
 class _LoginNotifState extends State<LoginNotif> {
   TextEditingController UserNameController = TextEditingController();
+  String key;
+
+  Future initialize() async {
+    key = await SharedPreferencePath().getUserDataInSharePrefrences();
+    if (key != null) {
+      SignalRProvider.userName = key;
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => NotificationsPage()));
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initialize();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +43,21 @@ class _LoginNotifState extends State<LoginNotif> {
               SizedBox(
                 height: 20,
               ),
-              RaisedButton(onPressed: () async {
-                await ProfileService().login(UserNameController.text);
-                print('yse2');
-              }),
+              RaisedButton(
+                onPressed: () async {
+                  key = await ProfileService().login(UserNameController.text);
+                  if (key != '') {
+                    await SharedPreferencePath()
+                        .setUserDataInSharePrefrences(key);
+                    SignalRProvider.userName = key;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NotificationsPage()));
+                  }
+                },
+                child: Text('تایید'),
+              ),
             ],
           ),
         ),
