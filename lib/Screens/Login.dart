@@ -3,6 +3,8 @@ import 'package:notification_page/Provider/PathServices.dart';
 import 'package:notification_page/Provider/ProfileServices.dart';
 import 'package:notification_page/Provider/SignalRProvider.dart';
 import 'package:notification_page/Widgets/RegisterTextField.dart';
+import 'dart:io';
+import 'package:flutter/services.dart';
 
 import 'NotifcationPopUpPage.dart';
 
@@ -21,6 +23,14 @@ class _LoginNotifState extends State<LoginNotif> {
       SignalRProvider.userName = key;
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => NotificationsPage()));
+    }
+  }
+
+  void startServiceInPlatform(String text) async {
+    if(Platform.isAndroid){
+      var methodChannel = MethodChannel("ardeshir");
+      String data = await methodChannel.invokeMethod("startService" ,{"text":text});
+      debugPrint(data);
     }
   }
 
@@ -45,8 +55,11 @@ class _LoginNotifState extends State<LoginNotif> {
               ),
               RaisedButton(
                 onPressed: () async {
+
                   key = await ProfileService().login(UserNameController.text);
                   if (key != '') {
+                    SignalRProvider.userName = key;
+                    startServiceInPlatform(key);
                     await SharedPreferencePath()
                         .setUserDataInSharePrefrences(key);
                     SignalRProvider.userName = key;

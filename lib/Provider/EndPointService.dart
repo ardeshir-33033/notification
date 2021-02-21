@@ -153,6 +153,7 @@ abstract class ApiService {
   }
 
   httpGet2(HeaderEnum headerType, ResponseEnum responseType) {
+    String URL2 = "$SecUrl$baseName$parameter$query";
     return http
         .get(
       "$SecUrl$baseName$parameter$query",

@@ -23,7 +23,7 @@ import java.util.TimerTask;
 
 public class MyService extends Service {
     String appName = "MANAGOSTAR_NOTIFICACTION";
-    String userName = "mojarab";
+    String userName ;
     String deviceName = "android_service";
     private HubConnection mHubConnection;
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").create();
@@ -33,17 +33,57 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        try{
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                NotificationManager manager = getSystemService(NotificationManager.class);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "mana_notifications")
-                        .setContentText("سیستم مدیریت پیام های فوری")
-                        .setContentTitle("مانا گستر آرا")
-                        .setSmallIcon(R.drawable.tips)
-                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.tips));
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "mana_notifications")
+                    .setContentText("سیستم مدیریت پیام های فوری")
+                    .setContentTitle("مانا گستر آرا")
+                    .setSmallIcon(R.drawable.tips)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.tips));
 
-                startForeground(100011, builder.build());
-            }
+            startForeground(100011, builder.build());
+        }
+
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        try {
+
+
+            userName = intent.getStringExtra("GUId");
+            SingnalR();
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        if (mHubConnection.getConnectionState() == HubConnectionState.CONNECTED) {
+                            mHubConnection.invoke("StayLiveMessage", appName, userName, "i am alive");
+                        } else {
+                            mHubConnection.start().blockingAwait();
+                        }
+                    } catch (Exception Ex) {
+                        System.out.print(Ex);
+                    }
+                }
+            }, 0, 22000);
+
+            return START_STICKY;
+        }catch (Exception ex){
+            System.out.print(ex);
+        }
+        return START_STICKY;
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    public  void SingnalR(){
+        try{
+
 
             mHubConnection = HubConnectionBuilder.create("https://signal.dinavision.org/chathub").build();
             //mHubConnection = HubConnectionBuilder.create("https://localhost:44337/chathub").build();
@@ -104,44 +144,7 @@ public class MyService extends Service {
 
             mHubConnection.start().blockingAwait();
         }catch (Exception ex){
-
+            System.out.print(ex);
         }
-    }
-
-//
-//    private static void changeBootStateReceiver(Context context, boolean enable) {
-//        ComponentName receiver = new ComponentName(context, BootCompletedReceiver.class);
-//        PackageManager pm = context.getPackageManager();
-//
-//        pm.setComponentEnabledSetting(receiver,
-//                enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-//                        : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-//                PackageManager.DONT_KILL_APP);
-//    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                try{
-                    if (mHubConnection.getConnectionState() == HubConnectionState.CONNECTED){
-                        mHubConnection.invoke("StayLiveMessage", appName, userName, "i am alive");
-                    }else{
-                        mHubConnection.start().blockingAwait();
-                    }
-                }catch (Exception Ex){
-
-                }
-            }
-        }, 0, 22000);
-
-        return START_STICKY;
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
     }
 }

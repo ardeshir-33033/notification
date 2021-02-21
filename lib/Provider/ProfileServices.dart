@@ -14,7 +14,6 @@ class ProfileService with ChangeNotifier {
     );
     if (response != '') {
       return response;
-    } else
-      return '';
+    }
   }
 }

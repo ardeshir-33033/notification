@@ -8,7 +8,8 @@ import 'package:signalr_core/signalr_core.dart';
 
 class SignalRProvider {
   static String appName = "MANAGOSTAR_NOTIFICATION";
-  static String userName = "mojarab";
+  static String userName;
+      ////"mojarab";
   static String deviceName = "android_app";
 
   static List<UserMessageModel> messages = List<UserMessageModel>();
