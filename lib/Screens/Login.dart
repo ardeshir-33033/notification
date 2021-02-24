@@ -38,11 +38,15 @@ class _LoginNotifState extends State<LoginNotif> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     initialize();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    initialize();
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -57,7 +61,7 @@ class _LoginNotifState extends State<LoginNotif> {
                 onPressed: () async {
 
                   key = await ProfileService().login(UserNameController.text);
-                  if (key != '') {
+                  if (key != null && key != '') {
                     SignalRProvider.userName = key;
                     startServiceInPlatform(key);
                     await SharedPreferencePath()
