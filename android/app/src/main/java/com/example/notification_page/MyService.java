@@ -47,10 +47,13 @@ public class MyService extends Service {
             public void onReceive(Context ctxt, Intent intent) {
                 int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                 int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                float batteryPct = level * 100 / (float)scale;
+                int batteryPct = level * 100 / (int) scale;
 
                 if(percentage != 0 && percentage != batteryPct && batteryPct / 2 == 0){
                     SignalR();
+                }
+
+                if(percentage == 0){
                     percentage = batteryPct;
                 }
             }
