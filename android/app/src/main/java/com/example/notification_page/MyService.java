@@ -37,10 +37,13 @@ public class MyService extends Service {
     private String tid;
     private Timer timer;
     private float percentage = 0;
+    NotificationManager Nmanager;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
             @Override
@@ -62,7 +65,6 @@ public class MyService extends Service {
         this.registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationManager manager = getSystemService(NotificationManager.class);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "mana_notifications")
                     .setContentText("سیستم مدیریت پیام های فوری")
                     .setContentTitle("مانا گستر آرا")
@@ -70,6 +72,16 @@ public class MyService extends Service {
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.tips));
 
             startForeground(100011, builder.build());
+        }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        try {
+            userName = intent.getStringExtra("GUId");
+            SignalR();
+        }catch (Exception ex){
+            System.out.print(ex);
         }
 
         new Timer().schedule(new TimerTask() {
@@ -109,19 +121,7 @@ public class MyService extends Service {
                 }
             }
         }, 0, 15000);
-    }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        try {
-            userName = intent.getStringExtra("GUId");
-
-            SignalR();
-
-            return START_STICKY;
-        }catch (Exception ex){
-            System.out.print(ex);
-        }
         return START_STICKY;
     }
 
@@ -188,7 +188,6 @@ public class MyService extends Service {
                     .setLargeIcon(myBitmap)
                     .build();
 
-            NotificationManager Nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
             Nmanager.notify(model.identity, builder.build());
 
@@ -230,8 +229,6 @@ public class MyService extends Service {
                         .setSmallIcon(R.drawable.tips)
                         .setLargeIcon(myBitmap)
                         .build();
-
-                NotificationManager Nmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
                 Nmanager.notify(model.identity, builder.build());
 
